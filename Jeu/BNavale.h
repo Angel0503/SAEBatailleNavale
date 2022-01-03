@@ -31,7 +31,7 @@ struct coords
     unsigned int coordY;
 };
 
-unsigned int genererBateau(coords coordPiece, unsigned int direction);
+coords genererBateau();
 // But : Générer le bateau à trouver en fonction de ses coordonnées.
 
 char coordLettre(int coord);

@@ -6,7 +6,7 @@
 #include <iostream>
 using namespace std;
 
-unsigned int genererBateau(coords coordPiece, unsigned int direction)
+coords genererBateau()
 {
 
     // VARIABLES
@@ -16,15 +16,20 @@ unsigned int genererBateau(coords coordPiece, unsigned int direction)
     unsigned int coefX;
     unsigned int coefY;
 
+    unsigned int direction;
+
     const unsigned int LG_TAB = 4;
+
+    coords coordPiece;
     coords coordChiffreBateau[LG_TAB];
 
     // Générer la première pièce du bateau
-    // posX, posY >> coordPiece
+    // Generation  posX et posY >> posX, posY 
 
     posX = random(1,9);
     posY = random(1,9);
 
+    //posX, posY >> Initialisation coordPiece >> coordPiece
     coordPiece.coordX = posX;
     coordPiece.coordY = posY;
 
@@ -110,7 +115,7 @@ unsigned int genererBateau(coords coordPiece, unsigned int direction)
         }
 
     }  
-    return 0;
+    return coordPiece;
 }
 
 char coordLettre(int coord) {
