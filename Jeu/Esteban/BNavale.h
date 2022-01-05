@@ -1,3 +1,6 @@
+#include <string>
+#include <iostream>
+using namespace std;
 /**  MODULE Bataille Navale
      permettant la manipulation de nombres RATIONNELS
      Implémentation proche d'un Type Abstrait de Données (TAD) 
@@ -31,7 +34,7 @@ struct coords
     unsigned int coordY;
 };
 
-void genererBateau(coords tableau[]);
+coords genererBateau();
 // But : Générer le bateau à trouver en fonction de ses coordonnées.
 
 char coordLettre(int coord);
@@ -39,3 +42,12 @@ char coordLettre(int coord);
 
 void afficher(char tab[][10], unsigned int nbCases);
 // But : Affiche un tableau de caractères de nbCases cases.
+
+int coordChiffre(char choix);
+// But : Modifie la première lettre des coordonnées en la changeant en chiffre.
+
+bool estTouche(bool touche);
+// But : Vérifie si le bateau est touché
+
+bool verifCoup(string xy);
+// But : Vérifie si les coordonnées sont bien entrées

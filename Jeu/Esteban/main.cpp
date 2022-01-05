@@ -25,9 +25,14 @@ int main(void) {
 
 	// VARIABLES POUR LE PROGRAMME PRINCIPAL
 	//-------------------------------------------
-	const int LG_TAB = 4;
 	coords test;
-	coords coordChiffreBateau[LG_TAB];
+	unsigned int touche;
+	bool gagner;
+	string toucher;
+	string manquer;
+	unsigned int compteTir;
+	string choix;
+
 	// unsigned int tour;
 
 	char tabPlateau[NB_CASES][NB_CASES] = {{' ','A','B','C','D','E','F','G','H','I'},
@@ -47,14 +52,28 @@ int main(void) {
 	// tour = 1;
 
 	afficher(tabPlateau,10);
-	/*
-	genererBateau(coordChiffreBateau);
-	for(int i = 0; i < 4; i++) {
-		cout << i << endl << endl;
-		cout << coordChiffreBateau[i].coordX << endl;
-		cout << coordChiffreBateau[i].coordY << endl;
-		cout << "------------" << endl;
-		}
-		*/
+	test = genererBateau();
+	cout << test.coordX << endl << test.coordY;
 	return 0;
-	} 
+
+	touche = 0;
+	gagner = false;
+	toucher = 'O';
+	manquer = '.';
+	compteTir = 0;
+
+	do
+	{
+		compteTir++;
+		cout << "Votre " << compteTir << "eme tir (ex. A3) ou abandonner (@@) ?" << endl;
+		cin >> choix;
+	} while (choix != "@@" && verifCoup(choix));
+
+	coordChiffre(choix[0]);
+	
+	if (estTouche)
+	{
+		/* code */
+	}
+	
+} 
