@@ -151,6 +151,42 @@ char coordLettre(int coord) {
     }
 }
 
+int coordChiffre(char choix) {
+    switch (toupper(choix))
+    {
+    case 'A':
+        return 1;
+        break;
+    case 'B':
+        return 2;
+        break;
+    case 'C':
+        return 3;
+        break;
+    case 'D':
+        return 4;
+        break;
+    case 'E':
+        return 5;
+        break;
+    case 'F':
+        return 6;
+        break;
+    case 'G':
+        return 7;
+        break;
+    case 'H':
+        return 8;
+        break;
+    case 'I':
+        return 9;
+        break;
+    default:
+        return 0;
+        break;
+    }
+}
+
 void afficher(char tab[][10], unsigned int nbCases)
 {
     //Afficher règles
@@ -171,6 +207,7 @@ void afficher(char tab[][10], unsigned int nbCases)
 }
 
 void afficherPlateau(char tabJeu[][10], unsigned int nb_cases) {
+
 for (unsigned int i = 0; i < nb_cases; i++)
 		{
             cout << endl << "| ";
@@ -181,4 +218,64 @@ for (unsigned int i = 0; i < nb_cases; i++)
             cout << endl;
             cout << "-----------------------------------------";
 		}   
+}
+
+bool estTouche(bool touche, string choix, coords coordChiffreBateau[4], unsigned int nbCases)
+{   
+    unsigned int part1Choix;
+    unsigned int part2Choix;
+
+    part1Choix = coordChiffre(choix[0]);
+    part2Choix = static_cast<unsigned int>(choix[1]);
+
+    
+    if (choix == coordChiffreBateau[choix])
+    {
+        /* code */
+    }
+    
+}
+
+bool verifCoup(string xy)
+{
+    bool verif;
+
+    switch (toupper(xy[0]))
+    {
+    case 'A':
+    case 'B':
+    case 'C':
+    case 'D':
+    case 'E':
+    case 'F':
+    case 'G':
+    case 'H':
+    case 'I':
+        verif = true;
+        break;
+    default:
+        verif = false;
+        cout << "Erreur en 'X' !";
+        break;
+    }
+
+    switch (toupper(xy[1]))
+    {
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+    case '8':
+    case '9':
+        verif = true;
+        break;
+    default:
+        verif = false;
+        cout << "Erreur en 'Y' !";
+        break;
+    }
+    return verif;
 }
