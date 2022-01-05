@@ -52,7 +52,7 @@ int main(void) {
 	// tour = 1;
 
 	afficher(tabPlateau,10);
-	test = genererBateau();
+	//test = genererBateau();
 	cout << test.coordX << endl << test.coordY;
 	return 0;
 

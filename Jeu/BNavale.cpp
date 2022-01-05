@@ -225,15 +225,35 @@ bool estTouche(bool touche, string choix, coords coordChiffreBateau[4], unsigned
     unsigned int part1Choix;
     unsigned int part2Choix;
 
+    int cpt{};
+
+    bool verifX{false};
+    bool verifY{false};
+
+    //Transformer choix
     part1Choix = coordChiffre(choix[0]);
     part2Choix = static_cast<unsigned int>(choix[1]);
 
-    
-    if (choix == coordChiffreBateau[choix])
-    {
-        /* code */
+    //Savoir si le bateau est touché
+    while(true){
+        if (cpt == 4){
+            break;
+        }
+        if (part1Choix == coordChiffreBateau[cpt].coordX){
+            verifX = true;
+            if (part2Choix == coordChiffreBateau[cpt].coordY){
+                verifY = true;
+            }
+        }
+        cpt ++;
     }
-    
+    //Retourner si le bateau est touché
+    if (verifX && verifY){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 bool verifCoup(string xy)
