@@ -6,8 +6,10 @@
 #include <iostream>
 using namespace std;
 
+//Sous-programme utilisé dans ce fichier
 void afficherPlateau(char tabJeu[][10], unsigned int nb_cases);
 
+//Définition des sous programmes
 void genererBateau(coords tableau[])
 {
 
@@ -206,19 +208,6 @@ void afficher(char tab[][10], unsigned int nbCases)
     afficherPlateau(tab, nbCases);
 }
 
-void afficherPlateau(char tabJeu[][10], unsigned int nb_cases) {
-    for (unsigned int i = 0; i < nb_cases; i++)
-            {
-                cout << endl << "| ";
-                for (unsigned int j = 0; j < nb_cases; j++)
-                {   
-                cout << tabJeu[i][j] << " | ";
-                }
-                cout << endl;
-                cout << "-----------------------------------------";
-            }   
-}
-
 bool estTouche(bool touche, string choix, coords coordChiffreBateau[4], unsigned int nbCases)
 {   
     unsigned int part1Choix;
@@ -303,4 +292,18 @@ bool verifCoup(string xy)
         break;
     }
     return verif;
+}
+
+//Definition des sous-programmes utilisé dans le fichier
+void afficherPlateau(char tabJeu[][10], unsigned int nb_cases) {
+    for (unsigned int i = 0; i < nb_cases; i++)
+            {
+                cout << endl << "| ";
+                for (unsigned int j = 0; j < nb_cases; j++)
+                {   
+                cout << tabJeu[i][j] << " | ";
+                }
+                cout << endl;
+                cout << "-----------------------------------------";
+            }   
 }
