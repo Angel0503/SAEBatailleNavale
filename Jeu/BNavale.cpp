@@ -207,17 +207,16 @@ void afficher(char tab[][10], unsigned int nbCases)
 }
 
 void afficherPlateau(char tabJeu[][10], unsigned int nb_cases) {
-
-for (unsigned int i = 0; i < nb_cases; i++)
-		{
-            cout << endl << "| ";
-			for (unsigned int j = 0; j < nb_cases; j++)
-            {   
-               cout << tabJeu[i][j] << " | ";
-            }
-            cout << endl;
-            cout << "-----------------------------------------";
-		}   
+    for (unsigned int i = 0; i < nb_cases; i++)
+            {
+                cout << endl << "| ";
+                for (unsigned int j = 0; j < nb_cases; j++)
+                {   
+                cout << tabJeu[i][j] << " | ";
+                }
+                cout << endl;
+                cout << "-----------------------------------------";
+            }   
 }
 
 bool estTouche(bool touche, string choix, coords coordChiffreBateau[4], unsigned int nbCases)
