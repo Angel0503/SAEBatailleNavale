@@ -239,12 +239,18 @@ bool estTouche(bool touche, string choix, coords coordChiffreBateau[4], unsigned
         if (cpt == 4){
             break;
         }
+
         if (part1Choix == coordChiffreBateau[cpt].coordX){
             verifX = true;
             if (part2Choix == coordChiffreBateau[cpt].coordY){
                 verifY = true;
             }
         }
+
+        if(verifX && verifY) {
+            break;
+        }
+
         cpt ++;
     }
     //Retourner si le bateau est touché
