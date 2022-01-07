@@ -4,6 +4,7 @@
 #include "BNavale.h"
 #include "game-tools.h"
 #include <iostream>
+#include <string>
 using namespace std;
 
 //Sous-programme utilisé dans ce fichier
@@ -117,8 +118,8 @@ void genererBateau(coords tableau[])
     }  
 }
 
-char coordLettre(int coord) {
-    switch (coord)
+char coordLettre(int coordChiffre) {
+    switch (coordChiffre)
     {
     case 1:
         return 'A';
