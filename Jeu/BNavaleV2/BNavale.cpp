@@ -249,11 +249,11 @@ bool estTouche(string choix, coords coordChiffreBateau[])
             verifX = true;
             if (part2Choix == coordChiffreBateau[cpt].coordY){
                 verifY = true;
+                break;
             }
-        }
-
-        if(verifX && verifY) {
-            break;
+            else {
+                verifX = false;
+            }
         }
 
         cpt ++;
