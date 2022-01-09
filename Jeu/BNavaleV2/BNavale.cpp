@@ -20,8 +20,6 @@ void genererBateau(coords coordBateau[])
 {
 
     // VARIABLES
-    coords coordPiece; //Premiere pièce du bateau
-
     unsigned int posX; //Un entier générer aléatoirement compris en 1 et 9
     unsigned int posY; //Un entier générer aléatoirement compris en 1 et 9
 
@@ -37,10 +35,6 @@ void genererBateau(coords coordBateau[])
     posX = random(1,9);
     posY = random(1,9);
 
-    //posX, posY >> Initialisation coordPiece >> coordPiece
-    coordPiece.coordX = posX;
-    coordPiece.coordY = posY;
-
     // Direction du placement du bateau >> direction
 
     direction = random(1,8);
@@ -53,7 +47,6 @@ void genererBateau(coords coordBateau[])
     coefY = 0;
 
     // coefX, coefY >> Modification des coefficients >> coefX, coefY
-
     switch (direction)
     {
     case 1:
@@ -65,7 +58,7 @@ void genererBateau(coords coordBateau[])
 
     case 3:
         coefX = -1;
-        coefY = 1;
+        coefY = -1;
         break;
 
     case 4:
@@ -96,32 +89,40 @@ void genererBateau(coords coordBateau[])
     }
 
     // coordPiece, coefX, coefY, coordBateau >> Placer le reste du bateau >> coordBateau
-
-    for (unsigned int i = 0; i <= 3; i++)
+    coordBateau[0].coordX = posX;
+    coordBateau[0].coordY = posY;
+    for (unsigned int i = 1; i <= 3; i++)
     {
-        // coordBateau, coordPiece >> Placer les coordonnées du bateau dans coordBateau >> coordBateau
-        coordBateau[i].coordX = posX;
-        coordBateau[i].coordY = posY;
 
-        // coordPiece, coefX, coefY >> Modifier coordPiece >> coordPiece, coefX, coefY
+        //posX, posY, coefX, coefY >> Modifier coordPiece >> coefX, coefY
         posX += coefX;
         posY += coefY;
 
         // coefX, coefY, coordPiece, coordBateau >> Modifier les coefficients s'ils sont à la limite du plateau >> coefX, coefY, [coordPiece]
 
-        // coefX >> Vérification coefX >> coefX
-        if (posX == 0 || posX == 9)
+        // coefX, posX >> Vérification coefX >> coefX, posX
+        if (posX == 0 || posX == 10)
         {
             coefX *= -1;
             posX = coordBateau[0].coordX;
+            posY = coordBateau[0].coordY;
+            //posX += coefX;
         }
 
-        // coefY >> Vérification coefY >> coefY
-        if (posY == 0 || posY == 9)
+        // coefY, posY >> Vérification coefY >> coefY, posY
+        if (posY == 0 || posY == 10)
         {
             coefY *= -1;
             posY = coordBateau[0].coordY;
+            posX = coordBateau[0].coordX;
+            //posY += coefY;
         }
+
+        // coordBateau, posX, posY >> Placer les coordonnées du bateau dans coordBateau >> coordBateau
+        coordBateau[i].coordX = posX;
+        coordBateau[i].coordY = posY;
+
+        
     }  
 }
 

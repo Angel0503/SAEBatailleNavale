@@ -104,7 +104,7 @@ int main(void) {
       //tabPlateau, tour, nbcases, coordBateau >> Affichage de victoire >> ecran
       affichage(coordBateau, tabPlateau, NB_CASES);
       //Afficher message de victoire
-      cout << endl << "BATEAU COULE en " << tour << "tirs";
+      cout << endl << "BATEAU COULE en " << tour << " tirs";
    }
    else{
       //tour, nbTouche >> Afficher message d'abandon >> ecran

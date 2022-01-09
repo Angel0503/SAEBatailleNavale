@@ -28,7 +28,6 @@ But :
 #ifndef BNAVALE_H
 #define BNAVALE_H
 
-#include <iostream>
 using namespace std;
 #include <string>
 // Types
