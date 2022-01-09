@@ -20,18 +20,20 @@ void genererBateau(coords coordBateau[])
 {
 
     // VARIABLES
-    unsigned int posX;
-    unsigned int posY;
+    coords coordPiece; //Premiere pièce du bateau
 
-    unsigned int coefX;
-    unsigned int coefY;
+    unsigned int posX; //Un entier générer aléatoirement compris en 1 et 9
+    unsigned int posY; //Un entier générer aléatoirement compris en 1 et 9
 
-    unsigned int direction;
+    unsigned int coefX; //Coefficient de déplacement X
+    unsigned int coefY; //Coefficient de déplacement Y
 
-    coords coordPiece;
-    // Générer la première pièce du bateau
-    // Generation  posX et posY >> posX, posY 
+    unsigned int direction; //Direction du bateau
 
+    // Génération aléatoire première pièce bateau et sa direction >> coordPiece, direction
+    // Première piece bateau >> coordPiece
+
+    // Génération position x et y
     posX = random(1,9);
     posY = random(1,9);
 
@@ -39,18 +41,18 @@ void genererBateau(coords coordBateau[])
     coordPiece.coordX = posX;
     coordPiece.coordY = posY;
 
-    // Générer la direction du bateau >> direction
+    // Direction du placement du bateau >> direction
 
     direction = random(1,8);
 
-    // Générer les autres pièces du bateaux en fonction de la direction et des coordonnées de la pièce (coordPiece)
+    // coordPiece, direction, coordBateau >> Générer le reste du bateau >> coordBateau
+    // direction >> Initialiser les coefficients de déplacements et les modifier si nécessaire >> coefX, coefY, borneX, borneY
 
-    // Initialiser les différents coefficients et les bornes >> coefX, coefY, borneX, borneY
-
+    //Initialiser coefficients de déplacement >> coefX, coefY
     coefX = 0;
     coefY = 0;
 
-    // Modification des coefficients en fonction de la direction
+    // coefX, coefY >> Modification des coefficients >> coefX, coefY
 
     switch (direction)
     {
@@ -93,21 +95,21 @@ void genererBateau(coords coordBateau[])
         break;
     }
 
-    // Placer le reste du bateau
+    // coordPiece, coefX, coefY, coordBateau >> Placer le reste du bateau >> coordBateau
 
     for (unsigned int i = 0; i <= 3; i++)
     {
-        // Placer les coordonnées de la pièce (coordPiece) dans le tableau coordBateau
+        // coordBateau, coordPiece >> Placer les coordonnées du bateau dans coordBateau >> coordBateau
         coordBateau[i].coordX = coordPiece.coordX;
         coordBateau[i].coordY = coordPiece.coordY;
 
-        // coordPiece, coefX, coefY >> Modifier coordPiece pour obtenir d'autre coordonnées >> coordPiece, coefX, coefY
+        // coordPiece, coefX, coefY >> Modifier coordPiece >> coordPiece, coefX, coefY
         coordPiece.coordX += coefX;
         coordPiece.coordY += coefY;
 
-        // coefX, coefY >> Modifier les coefficients s'ils sont arrivé à leurs bornes >> coefX, coefY
-        
-        // coefX, borneX >> Vérification coefX >> coefX, borneX
+        // coefX, coefY, coordPiece, coordBateau >> Modifier les coefficients s'ils sont à la limite du plateau >> coefX, coefY, [coordPiece]
+
+        // coefX >> Vérification coefX >> coefX
         if (coordPiece.coordX == 0 || coordPiece.coordX == 9)
         {
             coefX *= -1;
@@ -132,7 +134,7 @@ void affichage(coords coordBateau[], char tabPlateau[][10], unsigned int nbCases
     cout << "Le joueur doit couler un bateau de 4 cases" << endl;
     cout << "(il est soit positionne en vertical, horizontal ou diagonal)." << endl;
 
-    //Afficher les coordonnées du bateau
+    //coordBateau >> Afficher les coordonnées du bateau
     cout << "Bateau : ";
     for (int i = 0; i <= 3; i++)
     {
@@ -144,8 +146,62 @@ void affichage(coords coordBateau[], char tabPlateau[][10], unsigned int nbCases
     }
     cout << endl;
 
-    //Afficher le plateau de jeu
+    //tabPlateau, nbCases >> Afficher le plateau de jeu
     afficherPlateau(tabPlateau, nbCases);
+}
+
+bool estTouche(string choix, coords coordChiffreBateau[])
+{   
+    int cpt; //Un compteur
+
+    bool verifX; //Contient si la vérification de la coordonnée X est vérifiée ou non
+    bool verifY; //Contient si la vérification de la coordonnée Y est vérifiée ou non
+
+    unsigned int part1Choix; //Premier caractère de la variable choix transformé en entier
+    unsigned int part2Choix; //Deuxième caractère de la variable choix transformé en entier
+
+    //Initialiser les variables >> cpt, verifX, verifY
+    cpt = 0;
+
+    verifX = false;
+    verifY = false;
+
+    //choix >> Transformer variable choix >> part1Choix, part2Choix
+    part1Choix = coordChiffre(choix[0]);
+    part2Choix = static_cast<unsigned int>(choix[1]);
+
+    //part1Choix, part2Choix, cpt >> Savoir si le bateau est touché >> verifX, verifY
+    while(true){
+        if (cpt == 4){
+            break;
+        }
+
+        if (part1Choix == coordChiffreBateau[cpt].coordX){
+            verifX = true;
+            if (part2Choix == coordChiffreBateau[cpt].coordY){
+                verifY = true;
+                break;
+            }
+            else {
+                verifX = false;
+            }
+        }
+
+        //Incrémenter cpt
+        cpt ++;
+    }
+    //verifX, verifY >> Retourner si touché ou non
+    if (verifX && verifY){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+void afficherCoup(char symboleCoup, char tab[][10], coords coordonnees)
+{
+    tab[coordonnees.coordX][coordonnees.coordY] = symboleCoup;
 }
 
 char coordLettre(int coord) {
@@ -220,57 +276,11 @@ int coordChiffre(char choix) {
     }
 }
 
-void afficherCoup(char symboleCoup, char tab[][10], coords coordonnees)
-{
-    tab[coordonnees.coordX][coordonnees.coordY] = symboleCoup;
-}
-
-bool estTouche(string choix, coords coordChiffreBateau[])
-{   
-    unsigned int part1Choix;
-    unsigned int part2Choix;
-
-    int cpt{};
-
-    bool verifX{false};
-    bool verifY{false};
-
-    //Transformer choix
-    part1Choix = coordChiffre(choix[0]);
-    part2Choix = static_cast<unsigned int>(choix[1]);
-
-    //Savoir si le bateau est touché
-    while(true){
-        if (cpt == 4){
-            break;
-        }
-
-        if (part1Choix == coordChiffreBateau[cpt].coordX){
-            verifX = true;
-            if (part2Choix == coordChiffreBateau[cpt].coordY){
-                verifY = true;
-                break;
-            }
-            else {
-                verifX = false;
-            }
-        }
-
-        cpt ++;
-    }
-    //Retourner si le bateau est touché
-    if (verifX && verifY){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
-
 bool verifCoup(string xy)
 {
-    bool verif;
+    bool verif; //Vrai si x et y sont vérifiés sinon faux
 
+    //xy >> Vérification de x >> verif
     switch (toupper(xy[0]))
     {
     case 'A':
@@ -286,10 +296,11 @@ bool verifCoup(string xy)
         break;
     default:
         verif = false;
-        cout << "Erreur en 'X' !";
+        cout << "Erreur en 'X' !" << endl;
         break;
     }
 
+    //xy >> Vérification de y >> verif
     switch (toupper(xy[1]))
     {
     case '1':
@@ -308,6 +319,8 @@ bool verifCoup(string xy)
         cout << "Erreur en 'Y' !";
         break;
     }
+
+    //verif >> retourne verif 
     return verif;
 }
 

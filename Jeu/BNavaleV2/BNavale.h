@@ -42,25 +42,24 @@ struct coords
 // Sous-programmes
 
 void genererBateau(coords tableau[]);
-// But : Générer le bateau à trouver en fonction de ses coordonnées.
-
-char coordLettre(int coord);
-// But : Modifie le premier chiffre des coordonnées en le changeant en lettre.
-
-int coordChiffre(char choix);
-// But : Modifie la première lettre des coordonnées en la changeant en chiffre.
+// But : Génère les 4 pièces du bateau
 
 void affichage(coords coordBateau[], char tabPlateau[][10], unsigned int nbCases);
-// But : Affiche les règles du jeu ainsi que le plateau de jeu
+// But : Efface l'écran, affiche les règles, affiche les coordonnées du bateau puis affiche la plateau de jeu
+
+bool estTouche(string choix, coords coordBateau[]);
+// But : Retourne vrai si les coordonnées de la variable choix touche le bateau, sinon retourne faux
 
 void afficherCoup(char symboleCoup, char tab[][10], coords coordonnees);
-// But : Affiche le symbole du tir symbole coup (manqué ou touché) dans le tableau
-// tab à double dimension à partir des coordonnées.
+// But : Met le bon symbole à des coordonnées données sur un tableau donnée
 
-bool estTouche(string choix, coords coordChiffreBateau[]);
-// But : Retourne vrai si le bateau est touché et retourne faux si les coordonnées ne sont pas les bonnes.
+char coordLettre(int coord);
+// But : Permet de transformer un entier compris entre 1 et 9 en lettre compris entre 'A' et 'I'
+
+int coordChiffre(char choix);
+// But : Permet de transformer une lettre comprise entre 'a' et 'i' (majuscule aussi) en un entier compris entre 1 et 9
 
 bool verifCoup(string xy);
-// But : Vérifie si les coordonnées sont bien entrées
+// But : Vérifie que le coup xy est correct et retourne vrai sinon affiche en quelle(s) coordonnée(s) se trouve(nt) l’erreur/les erreurs
 
 #endif // BNAVALE_H
