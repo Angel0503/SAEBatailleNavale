@@ -100,27 +100,27 @@ void genererBateau(coords coordBateau[])
     for (unsigned int i = 0; i <= 3; i++)
     {
         // coordBateau, coordPiece >> Placer les coordonnées du bateau dans coordBateau >> coordBateau
-        coordBateau[i].coordX = coordPiece.coordX;
-        coordBateau[i].coordY = coordPiece.coordY;
+        coordBateau[i].coordX = posX;
+        coordBateau[i].coordY = posY;
 
         // coordPiece, coefX, coefY >> Modifier coordPiece >> coordPiece, coefX, coefY
-        coordPiece.coordX += coefX;
-        coordPiece.coordY += coefY;
+        posX += coefX;
+        posY += coefY;
 
         // coefX, coefY, coordPiece, coordBateau >> Modifier les coefficients s'ils sont à la limite du plateau >> coefX, coefY, [coordPiece]
 
         // coefX >> Vérification coefX >> coefX
-        if (coordPiece.coordX == 0 || coordPiece.coordX == 9)
+        if (posX == 0 || posX == 9)
         {
             coefX *= -1;
-            coordPiece.coordX = coordBateau[0].coordX;
+            posX = coordBateau[0].coordX;
         }
 
         // coefY >> Vérification coefY >> coefY
-        if (coordPiece.coordY == 0 || coordPiece.coordY == 9)
+        if (posY == 0 || posY == 9)
         {
             coefY *= -1;
-            coordPiece.coordY = coordBateau[0].coordY;
+            posY = coordBateau[0].coordY;
         }
     }  
 }
