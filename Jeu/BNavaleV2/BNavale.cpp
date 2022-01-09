@@ -127,7 +127,7 @@ void genererBateau(coords coordBateau[])
 
 void affichage(coords coordBateau[], char tabPlateau[][10], unsigned int nbCases)
 {
-    //effacer();
+    effacer();
 
     //Afficher règles
     cout << "B A T A I L L E  N A V A L E" << endl;
@@ -139,7 +139,7 @@ void affichage(coords coordBateau[], char tabPlateau[][10], unsigned int nbCases
     for (int i = 0; i <= 3; i++)
     {
         cout << "(";
-        cout << coordBateau[i].coordX;
+        cout << coordLettre(coordBateau[i].coordX);
         cout << ",";
         cout << coordBateau[i].coordY;
         cout << ")";
@@ -168,7 +168,7 @@ bool estTouche(string choix, coords coordChiffreBateau[])
 
     //choix >> Transformer variable choix >> part1Choix, part2Choix
     part1Choix = coordChiffre(choix[0]);
-    part2Choix = static_cast<unsigned int>(choix[1]);
+    part2Choix = toInt(choix[1]);
 
     //part1Choix, part2Choix, cpt >> Savoir si le bateau est touché >> verifX, verifY
     while(true){
@@ -201,11 +201,7 @@ bool estTouche(string choix, coords coordChiffreBateau[])
 
 void afficherCoup(char symboleCoup, char tab[][10], string coordonnees)
 {   
-    int test;
-    tab[coordChiffre(coordonnees[0])][static_cast<unsigned int>(coordonnees[1])] = symboleCoup;
-    cout << coordChiffre(coordonnees[0]) << endl;
-    test = (int)coordonnees[1];
-    cout << test << endl;
+    tab[toInt(coordonnees[1])][coordChiffre(coordonnees[0])] = symboleCoup;
 }
 
 char coordLettre(int coord) {
@@ -244,7 +240,7 @@ char coordLettre(int coord) {
     }
 }
 
-int coordChiffre(char choix) {
+unsigned int coordChiffre(char choix) {
     switch (toupper(choix))
     {
     case 'A':
@@ -277,6 +273,41 @@ int coordChiffre(char choix) {
     default:
         return 0;
         break;
+    }
+}
+
+unsigned int toInt(char caractere) {
+    switch(caractere){
+        case '1':
+            return 1;
+            break;
+        case '2':
+            return 2;
+            break;
+        case '3':
+            return 3;
+            break;
+        case '4':
+            return 4;
+            break;
+        case '5':
+            return 5;
+            break;
+        case '6':
+            return 6;
+            break;
+        case '7':
+            return 7;
+            break;
+        case '8':
+            return 8;
+            break;
+        case '9':
+            return 9;
+            break;
+        default:
+            return 0;
+            break;
     }
 }
 

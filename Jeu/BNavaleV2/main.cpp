@@ -52,15 +52,13 @@ int main(void) {
 
    //Initialiser le compteur de tour >> tour
    tour = 1;
-
+   nbTouche = 0;
    //coordBateau, tabPlateau, nbcases >> Afficher les règles et le plateau de jeu
    affichage(coordBateau, tabPlateau, NB_CASES);
 
    //tabPlateau, nbcases, tour, coordBateau >> Jouer la partie >> tour, tabPlateau, gagner
    while(true) {
       //Initialiser des variables >> nbTouche, toucher, manquer, gagner
-      nbTouche = 0;
-
       gagner = false;
 
       toucher = 'O';
@@ -79,7 +77,7 @@ int main(void) {
 
       //choix, toucher, manquer, nbTouche, tabPlateau >> Gérer si touché >> nbTouche
       if (estTouche(choix, coordBateau)) {
-         if (tabPlateau[coordChiffre(choix[0])][static_cast<unsigned int>(choix[1])] != toucher) {
+         if (tabPlateau[coordChiffre(choix[0])][toInt(choix[1])] != toucher) {
             nbTouche ++;
             afficherCoup(toucher,tabPlateau,choix);
          }

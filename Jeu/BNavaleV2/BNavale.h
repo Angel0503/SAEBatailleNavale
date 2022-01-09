@@ -56,8 +56,11 @@ void afficherCoup(char symboleCoup, char tab[][10], string coordonnees);
 char coordLettre(int coord);
 // But : Permet de transformer un entier compris entre 1 et 9 en lettre compris entre 'A' et 'I'
 
-int coordChiffre(char choix);
+unsigned int coordChiffre(char choix);
 // But : Permet de transformer une lettre comprise entre 'a' et 'i' (majuscule aussi) en un entier compris entre 1 et 9
+
+unsigned int toInt(char caractere);
+// But : transformer un carcatère contenant un chiffre en entier non signé
 
 bool verifCoup(string xy);
 // But : Vérifie que le coup xy est correct et retourne vrai sinon affiche en quelle(s) coordonnée(s) se trouve(nt) l’erreur/les erreurs
