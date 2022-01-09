@@ -3,7 +3,7 @@ Programme : NOM PROGRAMME
 But : BUT PROGRAMME
 Date de création : DATE
 Date de dernière modification : DATE
-Auteur : -Esteban Dujardin
+Auteurs : -Esteban Dujardin
          -Garcia Angel
 Remarques : *Code Conforme aux spécification internes données en cours
 */
@@ -11,33 +11,6 @@ Remarques : *Code Conforme aux spécification internes données en cours
 #include "BNavale.h"
 #include <iostream>
 using namespace std;
-
-const unsigned int NB_CASES = 10;
-
-// TYPES DES SOUS-PROGRAMMES
-//-----------------------------------
-
-// VARIABLES POUR LE PROGRAMME PRINCIPAL
-	//-------------------------------------------
-	unsigned int touche;
-	bool gagner;
-	string toucher;
-	string manquer;
-	unsigned int compteTir;
-	string choix;
-
-	// unsigned int tour;
-
-    char tabPlateau[NB_CASES][NB_CASES] = {{' ','A','B','C','D','E','F','G','H','I'},
-											{'1',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-											{'2',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-											{'3',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-											{'4',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-											{'5',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-											{'6',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-											{'7',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-											{'8',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-											{'9',' ',' ',' ',' ',' ',' ',' ',' ',' '},};
 
 //PROGRAMME PRINCIPAL
 int main(void) {
@@ -47,38 +20,96 @@ int main(void) {
 
    // VARIABLES POUR LE PROGRAMME PRINCIPAL
    //-------------------------------------------
-   coords coordBateau[4];
-   unsigned int tour;
+   const unsigned int NB_CASES = 10; //Nombre de case de tabPlateau
+   unsigned int tour; //Nombre de tour
+   unsigned int nbTouche; //Nombre de fois que le joueur à touché le bateau
+   char toucher; //Caractère qui apparaitra sur tabPlateau quand le bateau est touché
+	char manquer; //Caractère qui apparaitra sur tabPlateau quand le bateau est loupé
+   string choix; //Ce que le joueur saisie
+	bool gagner; // Contient si le joueur a gagné ou pas
+	
+
+   char tabPlateau[NB_CASES][NB_CASES] = {
+      {' ','A','B','C','D','E','F','G','H','I'},
+		{'1',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+		{'2',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+		{'3',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+		{'4',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+		{'5',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+		{'6',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+		{'7',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+		{'8',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+		{'9',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+      }; //Plateau de jeu
+
+   coords coordBateau[4];//Tableau de coordonnée du bateau
 
    // TRAITEMENTS
    //-------------------------------------------
-   // Générer le bateau
+   //tabPlateau, nbCases, coordBateau >> Initialiser la partie >> tabPLateau, nbCases, tour, coordBateau 
+   //coordBateau >> Génération du bateau >> coordBateau
    genererBateau(coordBateau);
 
-   //Initialiser le compteur de tour
+   //Initialiser le compteur de tour >> tour
    tour = 1;
 
-   //Afficher les règles et le plateau de jeu
+   //coordBateau, tabPlateau, nbcases >> Afficher les règles et le plateau de jeu
    affichage(coordBateau, tabPlateau, NB_CASES);
 
-   //Initialiser du nombre de touche, du booléen de victoire,
-   //et des indicateurs toucher et manquer.
-   touche = 0;
-   gagner = false;
-   toucher = 'O';
-   manquer = '.';
+   //tabPlateau, nbcases, tour, coordBateau >> Jouer la partie >> tour, tabPlateau, gagner
+   while(true) {
+      //Initialiser des variables >> nbTouche, toucher, manquer, gagner
+      nbTouche = 0;
 
-   // Saisie-Vérif
-   do
-	{
-		compteTir++;
-		cout << "Votre " << compteTir << "eme tir (ex. A3) ou abandonner (@@) ?" << endl;
-		cin >> choix;
-	} while (choix != "@@" && verifCoup(choix));
+      gagner = false;
 
+      toucher = 'O';
+      manquer = '.';
 
+      //tour >> SaisieVerif >> choix
+      do {
+         cout << endl << "Votre " << tour << "eme tir (ex. A3) ou abandonner (@@) ?" << endl;
+         cin >> choix;
+      } while (verifCoup(choix) != true);
+
+      //choix >> Condition de sortie numéro 1 (le joueur abandonne)
+      if (choix == "@@"){
+         break;
+      }
+
+      //choix, toucher, manquer, nbTouche, tabPlateau >> Gérer si touché >> nbTouche
+      if (estTouche(choix, coordBateau)) {
+         if (tabPlateau[coordChiffre(choix[0])][static_cast<unsigned int>(choix[1])] != toucher) {
+            nbTouche ++;
+            afficherCoup(toucher,tabPlateau,choix);
+         }
+      }
+      else {
+         afficherCoup(manquer,tabPlateau,choix);
+      }
+
+      //nbTouche, gagner >> Condition de sortie numéro 2 (le joueur gagne)
+      if(nbTouche == 4) {
+         gagner = true;
+         break;
+      }
+
+      //tour >> Incrémenter le compteur de tour >> tour
+      tour ++;
+
+      affichage(coordBateau, tabPlateau, NB_CASES);
+   }
+
+   //tabPlateau, tour, gagner, nbcases, coordBateau, nbTouche >> Finaliser la partie
+   if(gagner) {
+      //tabPlateau, tour, nbcases, coordBateau >> Affichage de victoire >> ecran
+      affichage(coordBateau, tabPlateau, NB_CASES);
+      //Afficher message de victoire
+      cout << "BATEAU COULE en " << tour << "tirs";
+   }
+   else{
+      //tour, nbTouche >> Afficher message d'abandon >> ecran
+      cout << "ABANDON bateau touche " << nbTouche << " fois sur " << tour;
+   }
    return 0;
 }
-
-// DÉFINITION DES SOUS-PROGRAMMES
-//---------------------------------

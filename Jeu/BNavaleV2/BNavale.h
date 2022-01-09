@@ -20,7 +20,7 @@ But :
 ---------
 
  Date de dernière modification : [jj/mm/aa]
- Auteur : -Esteban Dujardin
+ Auteurs : -Esteban Dujardin
           -Garcia Angel
  Remarques : Code conforme aux spécification précisées dans le sujet.
 */
@@ -50,7 +50,7 @@ void affichage(coords coordBateau[], char tabPlateau[][10], unsigned int nbCases
 bool estTouche(string choix, coords coordBateau[]);
 // But : Retourne vrai si les coordonnées de la variable choix touche le bateau, sinon retourne faux
 
-void afficherCoup(char symboleCoup, char tab[][10], coords coordonnees);
+void afficherCoup(char symboleCoup, char tab[][10], string coordonnees);
 // But : Met le bon symbole à des coordonnées données sur un tableau donnée
 
 char coordLettre(int coord);

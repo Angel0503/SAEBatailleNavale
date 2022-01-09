@@ -127,7 +127,7 @@ void genererBateau(coords coordBateau[])
 
 void affichage(coords coordBateau[], char tabPlateau[][10], unsigned int nbCases)
 {
-    effacer();
+    //effacer();
 
     //Afficher règles
     cout << "B A T A I L L E  N A V A L E" << endl;
@@ -199,9 +199,13 @@ bool estTouche(string choix, coords coordChiffreBateau[])
     }
 }
 
-void afficherCoup(char symboleCoup, char tab[][10], coords coordonnees)
-{
-    tab[coordonnees.coordX][coordonnees.coordY] = symboleCoup;
+void afficherCoup(char symboleCoup, char tab[][10], string coordonnees)
+{   
+    int test;
+    tab[coordChiffre(coordonnees[0])][static_cast<unsigned int>(coordonnees[1])] = symboleCoup;
+    cout << coordChiffre(coordonnees[0]) << endl;
+    test = (int)coordonnees[1];
+    cout << test << endl;
 }
 
 char coordLettre(int coord) {
@@ -279,6 +283,12 @@ int coordChiffre(char choix) {
 bool verifCoup(string xy)
 {
     bool verif; //Vrai si x et y sont vérifiés sinon faux
+
+    //xy >> Cas d'abandon >> verif
+    if(xy == "@@") {
+        verif = true;
+        return verif;
+    }
 
     //xy >> Vérification de x >> verif
     switch (toupper(xy[0]))
