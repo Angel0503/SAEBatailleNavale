@@ -36,11 +36,28 @@ void genererBateau(coords coordBateau[])
     posY = random(1,9);
 
     // Direction du placement du bateau >> direction
-
     direction = random(1,8);
 
-    // coordPiece, direction, coordBateau >> Générer le reste du bateau >> coordBateau
-    // direction >> Initialiser les coefficients de déplacements et les modifier si nécessaire >> coefX, coefY, borneX, borneY
+    //direction, posX, posY >> Gestion des coins >> direction
+    if(direction == 4 || direction == 8) {
+        if(posX < 4 && posY < 4) {
+            direction --;
+        }
+        else if(posX > 6 && posY > 6) {
+            direction --;
+        }
+    }
+    else if(direction == 3 || direction == 7){
+        if(posX < 4 && posY > 6){
+            direction ++;
+        }
+        else if(posX > 6 && posY < 4){
+            direction ++;
+        }
+    }
+
+    // direction, coordBateau, posX, posY >> Générer le reste du bateau >> coordBateau
+    // direction >> Initialiser les coefficients de déplacements et les modifier si nécessaire >> coefX, coefY
 
     //Initialiser coefficients de déplacement >> coefX, coefY
     coefX = 0;
@@ -88,41 +105,200 @@ void genererBateau(coords coordBateau[])
         break;
     }
 
-    // coordPiece, coefX, coefY, coordBateau >> Placer le reste du bateau >> coordBateau
+    // coordBateau, posX, posY >> Mettre la premiere piece >> coordBateau
     coordBateau[0].coordX = posX;
     coordBateau[0].coordY = posY;
+
+    //direction, coordBateau, posX, posY > Générer le reste du bateau > coordBateau
     for (unsigned int i = 1; i <= 3; i++)
     {
+        // coefX, coefY, posX, posY, coordBateau >> Modifier les coefficients s'ils sont à la limite du plateau >> coefX, coefY, posX, posY
+        // coefX, coefY, posX, posY, coordBateau, direction >> angle haut gauche >> coefX, coefY, posX, posY
+        if(posX == 1 && posY == 1){
+            switch (direction)
+            {
+            case 1:
+                coefX *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            case 3:
+                coefX *= -1;
+                coefY *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            case 6:
+                coefY *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            }
+        }
+        //& angle haut droit
+        else if(posX == 1 && posY == 9){
+            switch (direction)
+            {
+            case 1:
+                coefX *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            case 2:
+                coefY *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            case 4:
+                coefX *= -1;
+                coefY *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            }
+        }
+        //& angle bas gauche
+        else if(posX == 9 && posY == 1){
+            switch (direction)
+            {
+            case 5:
+                coefX *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            case 6:
+                coefY *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            case 8:
+                coefX *= -1;
+                coefY *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            }
+        }
+        //& angle bas droit
+        else if(posX == 9 && posY == 9){
+            switch (direction)
+            {
+            case 2:
+                coefY *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            case 5:
+                coefX *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            case 7:
+                coefX *= -1;
+                coefY *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            }
+        }
+        //& coté gauche
+        else if(posY == 1){
+            switch(direction){
+                case 3:
+                    coefX *= -1;
+                    coefY *= -1;
+                    posX = coordBateau[0].coordX;
+                    posY = coordBateau[0].coordY;
+                    break;
+                case 6:
+                    coefY *= -1;
+                    posX = coordBateau[0].coordX;
+                    posY = coordBateau[0].coordY;
+                    break;
+                case 8:
+                    coefX *= -1;
+                    coefY *= -1;
+                    posX = coordBateau[0].coordX;
+                    posY = coordBateau[0].coordY;
+                    break;
+            }
+        }
+        //& coté droit
+        else if(posY == 9){
+            switch (direction)
+            {
+            case 2:
+                coefY *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            case 4:
+                coefX *= -1;
+                coefY *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            case 7:
+                coefX *= -1;
+                coefY *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            }
+        }
+        //&coté haut
+        else if(posX == 1){
+            switch(direction){
+                case 1:
+                    coefX *= -1;
+                    posX = coordBateau[0].coordX;
+                    posY = coordBateau[0].coordY;
+                    break;
+                case 3:
+                    coefX *= -1;
+                    coefY *= -1;
+                    posX = coordBateau[0].coordX;
+                    posY = coordBateau[0].coordY;
+                    break;
+                case 4:
+                    coefX *= -1;
+                    coefY *= -1;
+                    posX = coordBateau[0].coordX;
+                    posY = coordBateau[0].coordY;
+                    break;
+            }
+        }
+        //& coté bas
+        else if(posX == 9){
+            switch (direction)      
+            {
+            case 5:
+                coefX *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            case 7:
+                coefX *= -1;
+                coefY *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            case 8:
+                coefX *= -1;
+                coefY *= -1;
+                posX = coordBateau[0].coordX;
+                posY = coordBateau[0].coordY;
+                break;
+            }
+        }
 
         //posX, posY, coefX, coefY >> Modifier coordPiece >> coefX, coefY
         posX += coefX;
         posY += coefY;
 
-        // coefX, coefY, coordPiece, coordBateau >> Modifier les coefficients s'ils sont à la limite du plateau >> coefX, coefY, [coordPiece]
-
-        // coefX, posX >> Vérification coefX >> coefX, posX
-        if (posX == 0 || posX == 10)
-        {
-            coefX *= -1;
-            posX = coordBateau[0].coordX;
-            posY = coordBateau[0].coordY;
-            //posX += coefX;
-        }
-
-        // coefY, posY >> Vérification coefY >> coefY, posY
-        if (posY == 0 || posY == 10)
-        {
-            coefY *= -1;
-            posY = coordBateau[0].coordY;
-            posX = coordBateau[0].coordX;
-            //posY += coefY;
-        }
-
         // coordBateau, posX, posY >> Placer les coordonnées du bateau dans coordBateau >> coordBateau
         coordBateau[i].coordX = posX;
-        coordBateau[i].coordY = posY;
-
-        
+        coordBateau[i].coordY = posY;        
     }  
 }
 
@@ -143,7 +319,7 @@ void affichage(coords coordBateau[], char tabPlateau[][10], unsigned int nbCases
         cout << coordLettre(coordBateau[i].coordX);
         cout << ",";
         cout << coordBateau[i].coordY;
-        cout << ")";
+        cout << ")   ";
     }
     cout << endl;
 
@@ -314,12 +490,11 @@ unsigned int toInt(char caractere) {
 
 bool verifCoup(string xy)
 {
-    bool verif; //Vrai si x et y sont vérifiés sinon faux
-
+    bool verifX;
+    bool verifY;
     //xy >> Cas d'abandon >> verif
     if(xy == "@@") {
-        verif = true;
-        return verif;
+        return true;
     }
 
     //xy >> Vérification de x >> verif
@@ -334,10 +509,10 @@ bool verifCoup(string xy)
     case 'G':
     case 'H':
     case 'I':
-        verif = true;
+        verifX = true;
         break;
     default:
-        verif = false;
+        verifX = false;
         cout << "Erreur en 'X' !" << endl;
         break;
     }
@@ -354,16 +529,21 @@ bool verifCoup(string xy)
     case '7':
     case '8':
     case '9':
-        verif = true;
+        verifY = true;
         break;
     default:
-        verif = false;
-        cout << "Erreur en 'Y' !";
+        verifY = false;
+        cout << "Erreur en 'Y' !" << endl;
         break;
     }
 
     //verif >> retourne verif 
-    return verif;
+    if(verifX && verifY){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 // Corps des sous-programmes déclarés dans ce corps

@@ -67,7 +67,7 @@ int main(void) {
    while(true) {
       //tour >> SaisieVerif >> choix
       do {
-         cout << endl << "Votre " << tour << "eme tir (ex. A3) ou abandonner (@@) ?" << endl;
+         cout << endl << "Votre " << tour << "eme tir (ex. A3) ou abandonner (@@) ? ";
          cin >> choix;
       } while (verifCoup(choix) != true);
 
